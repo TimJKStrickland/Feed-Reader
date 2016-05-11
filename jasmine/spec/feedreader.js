@@ -63,7 +63,7 @@ $(function() {
          var feedBody = document.body;
 
          it('menu is hidden by default', function(){
-            expect(menu).toBeDefined();
+            expect($('body').hasClass('menu-hidden')toBe(true);
          });
          
          
