@@ -119,6 +119,7 @@ $(function() {
                 loadFeed(0, done);
             });
 
+            // If content changes, the feed should not equal zero
             it('new feed is loaded', function(){
                 expect($('.feed')).not.toEqual(feed);
             });
