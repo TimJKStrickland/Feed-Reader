@@ -60,12 +60,10 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
-         it('menu is hidden by default', function(){
-            expect($(body).hasClass('menu-hidden').toBe(true);
-         });
-         
-         
 
+         // Big Thanks to Cody Perry [codyperry24] on the .hasClass method.
+         it('menu is hidden by default', function(){
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
          /* TODO: Write a test that ensures the menu changes
@@ -73,6 +71,20 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+
+        it('menu is changed with icon click event', function(){
+
+            $('a.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).not.toBe(true);
+
+        });
+
+        it('menu is toggled to hidden', function(){
+            $('a.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+        });
+
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
@@ -82,11 +94,33 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+    describe('Initial Entries', function (){
+        beforeEach(function(done){
+            loadFeed(0, done);
+        });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+        it('loadFeed method called', function(){
+            var entry = $('.feed .entry');
+            expect(entry.length).toBeGreaterThan(0);
+        });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+     });
+
+        /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+         * Method loadFeed() is asynchronous, so we still use beforeEach.
          */
+         describe("New Feed Selection", function(){
+
+            // variable feed to use later 
+            var feed;
+            beforeEach(function(done){
+                feed = $('.feed').html();
+                loadFeed(0, done);
+            });
+
+            it('new feed is loaded', function(){
+                expect($('.feed')).not.toEqual(feed);
+            });
+         });
 }());
